@@ -1,0 +1,26 @@
+tests:
+  - name: "Basic PCMU Call"
+    target: "sip:1000@192.168.1.50:5060"
+    from: "sip:tester@192.168.1.100"
+    transport: udp
+    codec: PCMU
+    duration: 30s
+    media_file: ""          # empty = send silence
+    repeat_media: true
+    rtp_port: 0             # 0 = auto-assign
+    sip_port: 5060
+    expected:
+      response_code: 200
+      setup_time_max: 10s
+
+  - name: "A-law Call with Audio"
+    target: "sip:2000@192.168.1.50:5060"
+    from: "sip:tester@192.168.1.100"
+    transport: udp
+    codec: PCMA
+    duration: 60s
+    media_file: "/path/to/test-audio.mp3"
+    repeat_media: true
+    expected:
+      response_code: 200
+      setup_time_max: 5s
